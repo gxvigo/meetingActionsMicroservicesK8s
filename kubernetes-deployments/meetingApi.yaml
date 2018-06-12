@@ -19,10 +19,11 @@ spec:
 ---
 apiVersion: v1
 data:
-  mongo.address: vf-mongo:27017
+  mongo.host: vf-mongo
+  mongo.port: "27017"
 kind: ConfigMap
 metadata:
-  name: mongo-config2
+  name: mongo-config
   namespace: ms-demo
 
 
@@ -50,13 +51,20 @@ spec:
           image: ms-demo/meetingapi:0.1.0
           env:
             # Define the environment variable
-            - name: SPECIAL_LEVEL_KEY
+            - name: MONGO_HOST
               valueFrom:
                 configMapKeyRef:
                   # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
                   name: mongo-config
                   # Specify the key associated with the value
-                  key: mongo.address
+                  key: mongo.host
+            - name: MONGO_PORT
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: mongo-config
+                  # Specify the key associated with the value
+                  key: mongo.port
           ports:
             - containerPort: 8090
       imagePullSecrets:

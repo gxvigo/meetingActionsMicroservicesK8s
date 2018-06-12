@@ -63,7 +63,7 @@ docker build -t meetingapi:0.1.0  .
 
 Run image locally on mac (with mongo on localhost:27017):
 ```
-docker run -e MONGO_HOST=docker.for.mac.host.internal -e MONGO_IP=27017 -p 8090:8090 meetingapi:0.1.0
+docker run -e MONGO_HOST=docker.for.mac.host.internal -e MONGO_PORT=27017 -p 8090:8090 meetingapi:0.1.0
 ```
 
 Tag the image for uploading into ICP

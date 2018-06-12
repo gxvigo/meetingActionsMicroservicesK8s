@@ -10,7 +10,8 @@ var methodOverride = require('method-override');
 
 // configuration ===============================================================
 // mongoose.connect(database.mongoUrl); 	// Connect to local MongoDB instance. 
-var mongoUrl = 'mongodb://' + process.env.MONGO_HOST + ':' + process.env.MONGO_IP + '/meetingactions';
+var mongoUrl = 'mongodb://' + process.env.MONGO_HOST + ':' + process.env.MONGO_PORT + '/meetingactions';
+console.log("### mongo.ur;: " + process.env.mongo.url);
 console.log("### mongoUrl: " + mongoUrl);
 mongoose.connect(mongoUrl); 	// Connect to local MongoDB instance. 
 
