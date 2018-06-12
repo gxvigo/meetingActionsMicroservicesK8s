@@ -1,0 +1,21 @@
+---
+# create the application namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ms-demo
+  labels:
+    name: ms-demo
+
+
+---
+# create the secret to access the image repository
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJteWNsdXN0ZXIuaWNwOjg1MDAiOnsidXNlcm5hbWUiOiJhZG1pbiIsInBhc3N3b3JkIjoiYWRtaW4iLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImF1dGgiOiJZV1J0YVc0NllXUnRhVzQ9In19fQ==
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: ms-demo-secret
+  namespace: ms-demo
+type: kubernetes.io/dockerconfigjson
