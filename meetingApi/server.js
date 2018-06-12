@@ -8,10 +8,13 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
+console.log("MeetingApi v011");
+
 // configuration ===============================================================
 // mongoose.connect(database.mongoUrl); 	// Connect to local MongoDB instance. 
 var mongoUrl = 'mongodb://' + process.env.MONGO_HOST + ':' + process.env.MONGO_PORT + '/meetingactions';
-console.log("### mongo.ur;: " + process.env.mongo.url);
+console.log("### MONGO_HOST: " + process.env.MONGO_HOST);
+console.log("### MONGO_PORT: " + process.env.MONGO_PORT);
 console.log("### mongoUrl: " + mongoUrl);
 mongoose.connect(mongoUrl); 	// Connect to local MongoDB instance. 
 
@@ -27,4 +30,4 @@ require('./app/routes.js')(app);
 
 // listen (start app with node server.js) ======================================
 app.listen(port);
-console.log("meetingApi listening on port " + port);
+console.log("MeetingApi listening on port " + port);
