@@ -55,6 +55,8 @@ A NodePort service for testing purpose has been created, access mongo from a cli
 
 ### API / backend
 
+** If the same image is pushed twice, the worker node won't replace the local existing image with the one from the repository**
+
 Building Docker image  
 From ./meetingAPI  
 ```
@@ -73,7 +75,7 @@ docker tag meetingapi:0.1.0 mycluster.icp:8500/ms-demo/meetingapi:0.1.0
 
 Login into remote repository
 ```
-docker login mycluster.icp:8500
+docker login -u admin -p admin mycluster.icp:8500
 ```  
 
 Push image on ICP private image repository:
