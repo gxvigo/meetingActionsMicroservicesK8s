@@ -1,0 +1,13 @@
+{
+  "name": "meeting-action-Ui",
+  "version": "0.0.1",
+  "description": "Meeting action front end",
+  "main": "server.js",
+  "author": "giovanni",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.10.8",
+    "method-override": "^2.3.10",
+    "morgan": "^1.9.0"
+  }
+}

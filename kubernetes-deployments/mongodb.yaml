@@ -1,0 +1,87 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ms-demo
+  labels:
+    name: ms-demo
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ms-demo
+  labels:
+    name: vf-mongo
+  name: vf-mongo
+spec:
+  type: ClusterIP
+  ports:
+    - port: 27017
+      targetPort: 27017
+  selector:
+    name: vf-mongo  
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ms-demo
+  labels:
+    name: vf-mongo-nodeport
+  name: vf-mongo-nodeport
+spec:
+  type: NodePort
+  ports:
+    - port: 27017
+      nodePort: 30017
+  selector:
+    name: vf-mongo    
+
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  namespace: ms-demo
+  name: vf-mongo-pvc
+spec:
+  resources:
+    requests:
+      storage: 10Mi
+  accessModes:
+  - ReadWriteOnce
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: ms-demo
+  labels:
+    name: vf-mongo
+  name: vf-mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: vf-mongo
+  template:
+    metadata:
+      labels:
+        name: vf-mongo
+    spec:
+      containers:
+      - image: mongo:3.6.5
+        name: vf-mongo
+        ports:
+        - name: vf-mongo
+          containerPort: 27017
+        volumeMounts:
+            - name: vf-mongo-persistent-storage
+              mountPath: /data/db
+      volumes:
+        - name: vf-mongo-persistent-storage
+          persistentVolumeClaim:
+            claimName: vf-mongo-pvc 
