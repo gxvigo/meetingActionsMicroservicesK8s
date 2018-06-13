@@ -130,8 +130,4 @@ What's created:
 - deployment - defintion of a pod 
 
 
-### Database - MongoDD
-
-Single replica for simplicity  
-Service name (dns) ClusterIP: vf-demo  
-A NodePort service for testing purpose has been created, access mongo from a client to the proxy-node IP of your cluster to the port 30017
+### UI / frontend
