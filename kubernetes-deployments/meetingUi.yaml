@@ -28,8 +28,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8090
-      nodePort: 30090
+    - port: 8080
+      nodePort: 30080
   selector:
     app: vf-meetingui     
 
@@ -37,11 +37,11 @@ spec:
 ---
 apiVersion: v1
 data:
-  mongo.host: vf-mongo
-  mongo.port: "27017"
+  meetingapi.host: vf-meetingapi
+  meetingapi.port: "8090"
 kind: ConfigMap
 metadata:
-  name: mongo-config
+  name: meetingapi-config
   namespace: ms-demo
 
 
@@ -69,22 +69,22 @@ spec:
           image: mycluster.icp:8500/ms-demo/meetingui:0.1.0
           env:
             # Define the environment variable
-            - name: MONGO_HOST
+            - name: MEETING_API_HOST
               valueFrom:
                 configMapKeyRef:
                   # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
-                  name: mongo-config
+                  name: meetingapi-config
                   # Specify the key associated with the value
-                  key: mongo.host
-            - name: MONGO_PORT
+                  key: meetingapi.host
+            - name: MEETING_API_PORT
               valueFrom:
                 configMapKeyRef:
                   # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
-                  name: mongo-config
+                  name: meetingapi-config
                   # Specify the key associated with the value
-                  key: mongo.port
+                  key: meetingapi.port
           ports:
-            - containerPort: 8090
+            - containerPort: 8080
       imagePullSecrets:
         - name: ms-demo-secret
       
