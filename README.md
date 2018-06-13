@@ -89,7 +89,7 @@ What's created:
 ** If the same image is pushed twice, the worker node won't replace the local existing image with the one from the repository**
 
 Building Docker image  
-From ./meetingAPI  
+From ./meetingApi  
 ```
 docker build -t meetingapi:0.1.0  .
 ```
@@ -131,3 +131,46 @@ What's created:
 
 
 ### UI / frontend
+
+** If the same image is pushed twice, the worker node won't replace the local existing image with the one from the repository**
+
+Building Docker image  
+From ./meetingUi  
+```
+docker build -t meetingui:0.1.0  .
+```
+
+Run image locally on mac (with mongo on localhost:27017):
+```
+docker run -e MEETING_API_HOST=docker.for.mac.host.internal -e MEETING_API_PORT=8090 -p 8080:8080 meetingui:0.1.0
+```
+
+Tag the image for uploading into ICP
+```
+docker tag meetingui:0.1.0 mycluster.icp:8500/ms-demo/meetingui:0.1.0
+```   
+
+Login into remote repository
+```
+docker login -u admin -p admin mycluster.icp:8500
+```  
+
+Push image on ICP private image repository:
+```
+ docker push mycluster.icp:8500/ms-demo/meetingui:0.1.0
+```  
+
+For convenience the commands above have been placed in the script ./meetingui/buildAndPush.sh  
+
+
+Deploy:
+
+```
+kubectl create -f ./kubernetes-deployments/meetingUi.yaml
+```
+
+What's created:
+
+- service - ClusterIP for service discovery (other pods can connect to mongo via dns - service-name:27017)
+- config map - to decouple configuration from code (mongodb access details)
+- deployment - defintion of a pod 
