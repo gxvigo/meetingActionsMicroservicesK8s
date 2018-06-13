@@ -140,7 +140,7 @@ From ./meetingUi
 docker build -t meetingui:0.1.0  .
 ```
 
-Run image locally on mac (with mongo on localhost:27017):
+Run image locally on mac (with mongo on localhost:8090):
 ```
 docker run -e MEETING_API_HOST=docker.for.mac.host.internal -e MEETING_API_PORT=8090 -p 8080:8080 meetingui:0.1.0
 ```
