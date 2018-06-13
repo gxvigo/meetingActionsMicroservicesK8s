@@ -18,10 +18,13 @@ app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse applicati
 app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request
 
 
+// getting env variable to call the right URL for meetingApi
 var meetingApiHost = process.env.MEETING_API_HOST || 'localhost'; 
 var meetingApiPort = process.env.MEETING_API_PORT || 8090; 
-var meetingApiUrl = 'http://' + meetingApiHost + ':' + meetingApiPort
+var meetingApiUrl = 'http://' + meetingApiHost + ':' + meetingApiPort;
+console.log("### meetinApiUrl: " + meetingApiUrl);
 
+// proxy requests from Angular to meetingApi
 app.use('/api', proxy({target: meetingApiUrl, changeOrigin: true}));
 
 // use res.render to load up an ejs view file
