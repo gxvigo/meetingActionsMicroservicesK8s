@@ -10,8 +10,8 @@
 	<title>Node/Angular Todo App</title>
 
 	<!-- SCROLLS -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="css/font-awesome.min.css">
 	<style>
 		html 					{ overflow-y:scroll; }
 		body 					{ padding-top:50px; }
@@ -20,7 +20,7 @@
 	</style>
 
 	<!-- SPELLS -->
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+	<script src="js/angular.min.js"></script><!-- load angular -->
 
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
 	<script src="js/services/todos.js"></script> <!-- load our todo service -->
@@ -29,6 +29,7 @@
 </head>
 <!-- SET THE CONTROLLER -->
 <body ng-controller="mainController">
+
 	<div class="container">
 
 		<!-- HEADER AND TODO COUNT -->
@@ -73,9 +74,8 @@
 		</div>
 
 		<div class="text-center text-muted">
-			<p>A demo by <a href="http://scotch.io">Scotch</a>.</p>
-			<p>Read the <a href="http://scotch.io/tutorials/javascript/creating-a-single-page-todo-app-with-node-and-angular">tutorial</a>.</p>
-		</div>
+			<p>Running on <a href="https://www.ibm.com/developerworks/community/groups/service/html/communityoverview?communityUuid=fe25b4ef-ea6a-4d86-a629-6f87ccf4649e">IBM Cloud Private</a>.</p>
+		</	div>
 
 	</div>
 

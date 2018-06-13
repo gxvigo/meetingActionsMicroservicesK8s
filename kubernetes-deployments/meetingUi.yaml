@@ -2,39 +2,89 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: vf-meetingUi
+  namespace: ms-demo
+  name: vf-meetingui
   labels:
-    app: vf-meetingUi
+    app: vf-meetingui
     solution: vf-meeting-action
-  spec:
-    type: CLusterIP
-    ports:
-    - port: 8090
-      targetPort: 8090
-    selector:
-      app: vf-meetingUi
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: vf-meetingui
 
- ---
-apiVersion: app/v1
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: ms-demo
+  name: vf-meetingui-nodeport
+  labels:
+    app: vf-meetingui
+    solution: vf-meeting-action
+spec:
+  type: NodePort
+  ports:
+    - port: 8090
+      nodePort: 30090
+  selector:
+    app: vf-meetingui     
+
+ 
+---
+apiVersion: v1
+data:
+  mongo.host: vf-mongo
+  mongo.port: "27017"
+kind: ConfigMap
+metadata:
+  name: mongo-config
+  namespace: ms-demo
+
+
+---
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  ame: vf-meetingUi
-  abels:
-    app: vf-meetingUi
+  namespace: ms-demo
+  name: vf-meetingui
+  labels:
+    app: vf-meetingui
     solution: vf-meeting-action  
-  spec:
-    replica: 1
-    selector: 
-      matchLabel:
-        app: vf-meetingUi  
-    template:
-      metadata:
-        labels:
-          app: vf-meetingUi
-      spec:
-        containers:
-          - name: vf-meetingUi
-            image: vfdemo/meetingUi:0.1.0
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: vf-meetingui  
+  template:
+    metadata:
+      labels:
+        app: vf-meetingui
+    spec:
+      containers:
+        - name: vf-meetingui
+          image: mycluster.icp:8500/ms-demo/meetingui:0.1.0
+          env:
+            # Define the environment variable
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: mongo-config
+                  # Specify the key associated with the value
+                  key: mongo.host
+            - name: MONGO_PORT
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: mongo-config
+                  # Specify the key associated with the value
+                  key: mongo.port
           ports:
-            - containerPort: 8090        
-     
+            - containerPort: 8090
+      imagePullSecrets:
+        - name: ms-demo-secret
+      

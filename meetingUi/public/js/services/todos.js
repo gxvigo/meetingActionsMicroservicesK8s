@@ -4,9 +4,11 @@ angular.module('todoService', [])
 	// each function returns a promise object 
 	.factory('Todos', ['$http',function($http) {
 
+
 		return {
 			get : function() {
-				return $http.get('http://localhost:8090/api/todos');
+				// return $http.get('http://localhost:8090/api/todos');
+				return $http.get('http://localhost:8080/api/todos');
 				// return $http.get('http://' + process.env.API_HOST + ':' + process.env.API_PORT);
 			},
 			create : function(todoData) {

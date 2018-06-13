@@ -30,4 +30,4 @@ require('./app/routes.js')(app);
 
 // listen (start app with node server.js) ======================================
 app.listen(port);
-console.log("MeetingApi listening on port " + port);
+console.log("MeetingApi v011 listening on port " + port);
