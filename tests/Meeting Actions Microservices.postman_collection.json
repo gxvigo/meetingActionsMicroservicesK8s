@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "95868a32-f94c-44e9-8781-8da4e8ecf73c",
+		"name": "Meeting Actions Microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all todos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\": \"added from postman\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create todo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\": \"another test from postman\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a todo",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\": \"added from postman\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/todos/5b1e254062d2751e2a190add",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"todos",
+						"5b1e254062d2751e2a190add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create todo - ICP W530",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\": \"another test from postman3\"}"
+				},
+				"url": {
+					"raw": "http://192.168.225.11:30090/api/todos",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"225",
+						"11"
+					],
+					"port": "30090",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all todos - ICP W530",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\": \"added from postman\"}"
+				},
+				"url": {
+					"raw": "http://192.168.225.11:30090/api/todos",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"225",
+						"11"
+					],
+					"port": "30090",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a todo - ICP W530",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"text\": \"added from postman\"}"
+				},
+				"url": {
+					"raw": "http://192.168.225.11:30090/api/todos/5b1e254062d2751e2a190add",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"225",
+						"11"
+					],
+					"port": "30090",
+					"path": [
+						"api",
+						"todos",
+						"5b1e254062d2751e2a190add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

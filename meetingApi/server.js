@@ -8,7 +8,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-console.log("MeetingApi v012");
+console.log("MeetingApi v010");
 
 // configuration ===============================================================
 // mongoose.connect(database.mongoUrl); 	// Connect to local MongoDB instance. 
@@ -31,4 +31,4 @@ require('./app/routes.js')(app);
 
 // listen (start app with node server.js) ======================================
 app.listen(port);
-console.log("MeetingApi v012 listening on port " + port);
+console.log("MeetingApi v010 listening on port " + port);

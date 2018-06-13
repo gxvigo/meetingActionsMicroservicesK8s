@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: ms-demo
+  name: vf-meetingui
+spec:
+  rules:
+  - host: meetingactions
+    http:
+      paths:
+      - backend:
+          serviceName: vf-meetingui
+          servicePort: 8080
