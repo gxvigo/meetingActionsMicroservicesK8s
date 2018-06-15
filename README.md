@@ -12,15 +12,37 @@ This simple application is structured in 3 components:
 application directrory: ./meetingFrontend  
 default listening port: **8080**
 
+Point of variability (ENV VARIABLE driven):  
+file *server.js* 
+ 
+```
+var meetingApiHost = process.env.MEETING_API_HOST || 'localhost'; 
+var meetingApiPort = process.env.MEETING_API_PORT || 8090; 
+```
+
+file *./public/service/todos.js* (Angular service). The URL of the html page is retrieve at runtime by the Angular variable $location
+ 
+```
+var meetingUIUrl = $location.host() + ':' + $location.port() ;
+```
+
+
 ### Backend API - meetingApi
 
 application directrory: ./meetingApi  
 default listening port: **8090**
 
+Point of variability (ENV VARIABLE driven):  
+file *server.js* 
+ 
+```
+var mongoHost = process.env.MONGO_HOST || 'localhost';    
+var mongoPort = process.env.MONGO_PORT || 27017; 
+```
 
 ### Database - Mongodb
 
-application directrory: N/A
+application directrory: N/A  
 default listening port: **127027**
 
 
