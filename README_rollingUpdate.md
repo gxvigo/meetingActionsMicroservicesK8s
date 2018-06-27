@@ -52,8 +52,49 @@ For convenience the commands above have been placed in the script ./meetingui/bu
 ### RollingUpdate Frontend
 
 
+First let's scale up our deployment, this ways it's a bit easier to see what happens
+
+```
+kubectl scale deployments/vf-meetingui --replicas=4 -n ms-demo
+```  
+
+
 To update the image of the application to version 2, use the set image command, followed by the deployment name and the new image version. This will not only set the new image, but it triggers the updates of the pods.
 
 ```
-kubectl set image deployments/vf-meetingui vf-meetingui=ms-demo/meetingui:0.2.0 -n ms-demo
+kubectl set image deployments/vf-meetingui vf-meetingui=mycluster.icp:8500/ms-demo/meetingui:0.2.0 -n ms-demo
 ```
+
+To observe the behavior (pod replacement) run:
+
+```
+watch kubectl get pods -n ms-demo
+```  
+
+To check the status of the rollout  
+
+```
+kubectl rollout status deployments/vf-meetingui -n ms-demo
+```
+
+Check application:  [meeting actions UI](http://meetingactions/)
+
+
+### Rollback to v0.1.0
+
+It's possible roll back to our previously working version. 
+
+```
+kubectl rollout undo deployments/vf-meetingui -n ms-demo
+```
+
+The rollout command reverted the deployment to the previous known state (v0.1.0 of the image). 
+Updates are versioned and you can revert to any previously know state of a Deployment
+
+To check the status of the rollout  
+
+```
+kubectl rollout status deployments/vf-meetingui -n ms-demo
+```
+
+Check application:  [meeting actions UI](http://meetingactions/)
