@@ -45,6 +45,12 @@ var mongoPort = process.env.MONGO_PORT || 27017;
 application directrory: N/A  
 default listening port: **127027**
 
+To test Mongo locally run:  
+
+```
+docker run --name=mongo -e MONGO_HOST='docker.for.mac.host.internal' -v /Users/giovanni/opt/workspaces/NodeSamples/nodetest1/data/db:/data/db -p 27017:27017 -d mongo:3.6.5
+```
+
 
 
 

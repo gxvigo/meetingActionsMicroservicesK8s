@@ -57,4 +57,38 @@ module.exports = function (app) {
             getTodos(res);
         });
     });
+
+
+    // The following 3 methods are used to test and demonstrate Kubernetes liveness probe.
+    // global variable to drive the test, when service starts everything works fine
+    let working = true;
+
+    // Calling this endpoint the heath check service stops working
+    app.get('/api/breakIt', function (req, res) {
+        working = false;
+        res.status(200).json({
+            message: 'Just broke it!'
+        });
+    });
+
+    // Calling this endpoint the heath check service starts working
+    app.get('/api/fixIt', function (req, res) {
+        working = true;
+        res.status(200).json({
+            message: 'Just fixed it!'
+        });
+    });
+
+    // The response of this service depends on 'working' variable
+    app.get('/api/healthCheck', function (req, res) {
+        if (working == true) {
+            res.status(200).json({
+                message: 'ok'
+            });
+        } else {
+            res.status(500).json({
+                message: 'ko'
+            });
+        }  
+    });
 };

@@ -11,7 +11,7 @@ This can be achieved in different ways, we will start covering a 'runtime' optio
 Firstly we have to create a new image, to do so make a change to the ui application.
 For simplicity we can change the main page title, open the file ./meetingUI/views/pages/myindex.ejs and change line 37
 
-FROM "Meeting actions! " TO "New meeting actions!"
+FROM "Meeting actions! " TO "Meeting actions! v020"
 
 The rebuild the image with a new tag version
 
@@ -59,7 +59,7 @@ kubectl scale deployments/vf-meetingui --replicas=4 -n ms-demo
 ```  
 
 
-To update the image of the application to version 2, use the set image command, followed by the deployment name and the new image version. This will not only set the new image, but it triggers the updates of the pods.
+To update the image of the application to version 0.2, use the set image command, followed by the deployment name and the new image version. This will not only set the new image, but it triggers the updates of the pods.
 
 ```
 kubectl set image deployments/vf-meetingui vf-meetingui=mycluster.icp:8500/ms-demo/meetingui:0.2.0 -n ms-demo
