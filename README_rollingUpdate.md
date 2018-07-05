@@ -82,6 +82,12 @@ Check application:  [meeting actions UI](http://meetingactions/)
 
 ### Rollback to v0.1.0
 
+Let's check rollout history:
+    
+```
+kubectl rollout history deployments/vf-meetingui -n ms-demo
+```
+
 It's possible roll back to our previously working version. 
 
 ```
