@@ -34,6 +34,7 @@ spec:
     app: vf-meetingui     
 
 
+
 ---       
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -44,11 +45,29 @@ spec:
   rules:
   - host: meetingactions
     http:
+<<<<<<< HEAD
       paths: /somepath
       - backend:
           serviceName: vf-meetingui
           servicePort: 8080
            
+||||||| merged common ancestors
+      paths:
+      - backend:
+          serviceName: vf-meetingui
+          servicePort: 8080
+           
+=======
+      paths: 
+        - path: /
+          backend:
+            serviceName: vf-meetingui
+            servicePort: 8080
+        - path: /api
+          backend:
+            serviceName: vf-meetingapi
+            servicePort: 8090   
+>>>>>>> 997dfaaaaf2bbd255f062323b464ca5450b322d8
  
 ---
 apiVersion: v1
