@@ -36,7 +36,7 @@ docker login -u admin -p admin mycluster.icp:8500
 
 Push image on ICP private image repository:
 ```
- docker push mycluster.icp:8500/ms-demo/meeting-mongo-init:0.1.0
+docker push mycluster.icp:8500/ms-demo/meeting-mongo-init:0.1.0
 ```  
 
 ** If the same image is pushed twice, the worker node won't replace the local existing image with the one from the repository**
@@ -68,3 +68,13 @@ Then run the job:
 ```
 kubectl create -f mongo-init-job.yaml
 ```
+
+Check job completion:
+
+```
+kubectl get jobs mongodb-init -w -n ms-demo
+```
+When SUCCESSFUL get to 1, the job is completed (successfully) and the database/collections/documents are created
+
+NAME           DESIRED   SUCCESSFUL   AGE
+mongodb-init   1         1            13s
