@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mongodb-init
+  labels: 
+    app: meetingactions
+spec:
+  template: 
+    metadata: 
+      name" mongodb-init
+    spec:
+      containers:
+        - name: mongodb-init
+          image: mycluster.icp:8500/ms-demo/meeting-mongo-init:0.1.0
+          env:
+            # Define the environment variable
+            - name: MONGO_HOST
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: mongo-config
+                  # Specify the key associated with the value
+                  key: mongo.host
+            - name: MONGO_PORT
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: mongo-config
+                  # Specify the key associated with the value
+                  key: mongo.port
+          restartPolicy: never

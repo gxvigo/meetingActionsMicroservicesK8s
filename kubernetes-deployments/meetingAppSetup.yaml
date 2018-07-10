@@ -19,3 +19,16 @@ metadata:
   name: ms-demo-secret
   namespace: ms-demo
 type: kubernetes.io/dockerconfigjson
+
+
+---
+# create config map with details to connect to MongoDb, this will be used by both meetingMongoInit and MeetingApi
+
+apiVersion: v1
+data:
+  mongo.host: vf-mongo
+  mongo.port: "27017"
+kind: ConfigMap
+metadata:
+  name: mongo-config
+  namespace: ms-demo

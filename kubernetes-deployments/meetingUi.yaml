@@ -44,7 +44,7 @@ spec:
   rules:
   - host: meetingactions
     http:
-      paths:
+      paths: /somepath
       - backend:
           serviceName: vf-meetingui
           servicePort: 8080
