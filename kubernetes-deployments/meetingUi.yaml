@@ -34,6 +34,7 @@ spec:
     app: vf-meetingui     
 
 
+
 ---       
 apiVersion: extensions/v1beta1
 kind: Ingress
@@ -52,7 +53,7 @@ spec:
         - path: /api
           backend:
             serviceName: vf-meetingapi
-            servicePort: 8090        
+            servicePort: 8090   
  
 ---
 apiVersion: v1
