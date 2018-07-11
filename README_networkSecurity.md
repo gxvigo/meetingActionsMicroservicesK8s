@@ -155,3 +155,6 @@ The command fails: *wget: download timed out*
 
 
 
+
+TO BE COMPLETED: 
+https://docs.projectcalico.org/v3.0/getting-started/kubernetes/tutorials/advanced-policy
