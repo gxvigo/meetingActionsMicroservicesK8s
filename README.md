@@ -6,6 +6,7 @@ This simple application is structured in 3 components:
 - Backend API - (Node.js - Express, Mongoose)
 - Database - (Mongo) 
 
+</br>
 
 ### Frontend UI - meetingUi
  
@@ -26,6 +27,7 @@ file *./public/service/todos.js* (Angular service). The URL of the html page is 
 var meetingUIUrl = $location.host() + ':' + $location.port() ;
 ```
 
+</br>
 
 ### Backend API - meetingApi
 
@@ -40,6 +42,8 @@ var mongoHost = process.env.MONGO_HOST || 'localhost';
 var mongoPort = process.env.MONGO_PORT || 27017; 
 ```
 
+</br>
+
 ### Database - Mongodb
 
 application directrory: N/A  
@@ -52,7 +56,8 @@ docker run --name=mongo -e MONGO_HOST='docker.for.mac.host.internal' -v /Users/g
 ```
 
 
-
+</br>
+---
 
 
 ## Deployment
@@ -62,7 +67,7 @@ Kubernetes deployment yaml files are stored ./kubernetes-deployment
 Everything running in ms-demo namespace  
 
 All the command must be run from a system with kubectl installed and configured to talk to the master node.
-In my test environments this can be my nfs server or the boot node.
+In my test environments this can be my nfs server.
 
 *I found an issue, not solved yet, to perform Docker login to my private registry in ICP from mac*  
 
@@ -83,21 +88,23 @@ What's created:
 
 - namespace - to 'host' all the resources related to the appliction
 - secret - to authenticate the deployments to get the images from the private image registry
+- configMap - with details of mongoDb. This is used by the db init job  
 
-All the resources are created executing yaml files, but because the secret is obfuscated, it's not really clear what it does, for clarity the kubectl command to create the same secret is listed below:
-
+*Note* -- All the resources are created executing yaml files, but because the secret is obfuscated, it's not really clear what it does, for clarity the kubectl command to create the same secret is listed below:
+  
 ```
 kubectl create secret docker-registry ms-demo-secret --docker-server=mycluster.icp:8500 --docker-username=admin --docker-password=admin --docker-email=admin@admin.com --namespace ms-demo
 ```  
 
+</br>
 
 ### Database - Mongo
 
-Mongo is deployed as a single replica for simplicity, creating a robust Mongo deployment (using StatefulSet) is beyond the scope of this material  
+Mongo is deployed as a single replica for simplicity, creating a robust Mongo deployment (using StatefulSet) is beyond the scope of this material  **TO-DO**
 
 Service name (dns) ClusterIP: vf-mongo  
 
-This is the simplest deployment. There's no custom code or local image to build. All the definitions to create the data storage for our applications are in ./kubernetes-deployments/mongodb.yaml  
+This is the simplest deployment. There's no custom code or local image to build. All the definitions to create the data storage for our applications are in [mongodb.yaml](./kubernetes-deployments/mongodb.yaml)  
 
 Deploy:
 
@@ -114,6 +121,12 @@ What's created:
 *A NodePort service for testing purpose has been created, access mongo from a client to the proxy-node IP of your cluster to the port 30017 -- this is not necessary for application functionality and can be removed*
 
 
+#### Application database initialization
+
+**TO-DO:** Write  [README init jobs.md](./README_init_jobs.md)
+
+
+</br>
 
 ### API / backend
 
@@ -125,32 +138,38 @@ From ./meetingApi
 
 
 Building Docker image
+
 ```
 docker build -t meetingapi:0.1.0  .
 ```
 
 Run image locally on mac (with mongo on localhost:27017):
+
 ```
 docker run -e MONGO_HOST=docker.for.mac.host.internal -e MONGO_PORT=27017 -p 8090:8090 meetingapi:0.1.0
 ```
 
 Tag the image for uploading into ICP
+
 ```
 docker tag meetingapi:0.1.0 mycluster.icp:8500/ms-demo/meetingapi:0.1.0
 ```   
 
+
 Login into remote private image repository (on ICP)
+
 ```
 docker login -u admin -p admin mycluster.icp:8500
 ```  
 
 Push image on ICP private image repository:
+
 ```
  docker push mycluster.icp:8500/ms-demo/meetingapi:0.1.0
 ```  
 
 
-** If the same image is pushed twice, the worker node won't replace the local existing image with the one from the repository**
+** If the same image is pushed twice, the worker node won't replace the local existing image with the one from the repository **
 
 
 For convenience the commands above have been placed in the script ./meetingApi/buildAndPush.sh  
@@ -183,26 +202,31 @@ The instruction below describe the process to create the custom image and push t
 From ./meetingUi  
 
 Building Docker image
+
 ```
 docker build -t meetingui:0.1.0  .
 ```
 
 Run image locally on mac (with meetingApi on localhost:8090):
+
 ```
 docker run -e MEETING_API_HOST=docker.for.mac.host.internal -e MEETING_API_PORT=8090 -p 8080:8080 meetingui:0.1.0
 ```
 
 Tag the image for uploading into ICP
+
 ```
 docker tag meetingui:0.1.0 mycluster.icp:8500/ms-demo/meetingui:0.1.0
 ```   
 
 Login into remote repository
+
 ```
 docker login -u admin -p admin mycluster.icp:8500
 ```  
 
 Push image on ICP private image repository:
+
 ```
  docker push mycluster.icp:8500/ms-demo/meetingui:0.1.0
 ```  
@@ -231,6 +255,7 @@ What's created:
 
 ### To reset the environment:
 - delete all kubernetes resources  
+
 ```
   kubectl delete -f <all yaml files one by one>  
 ```  
