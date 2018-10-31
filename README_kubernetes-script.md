@@ -13,11 +13,10 @@
 
 - copy the kubectl setup from ICP Console (https://172.23.50.120:8443)
 
-`
+```
 $ cloudctl login -a https://172.23.50.120:8443 --skip-ssl-validation
-
 $ docker login -u admin -p admin mycluster.icp:8500
-`
+````
  
 
 
