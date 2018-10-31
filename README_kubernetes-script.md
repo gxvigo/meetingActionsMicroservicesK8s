@@ -8,8 +8,6 @@
 - ICP boot node: ssh root@172.23.50.112 (passw0rd)
 
 
-## github: https://github.com/gxvigo/meetingActionsMicroservicesK8s
-
 
 ## Login into the environment from my mac
 
@@ -33,30 +31,38 @@ $ kubectl get ns
 ```
 
 
-## create resources following github: https://github.com/gxvigo/meetingActionsMicroservicesK8s
-
+- create resources following github: https://github.com/gxvigo/meetingActionsMicroservicesK8s
 (This assume containers have been already pushed to the private registry)
 
+- initial setup
 ```
 $ cd /Users/giovanni/opt/workspaces/NodeSamples/meetingActionsMicroservicesK8s
 $ kubectl create -f kubernetes-deployments/meetingAppSetup.yaml
 
 $ kubectl get ns
 $ kubectl get all -n ms-demo
+```
 
+- mongo deployment
+```
 $ kubectl create -f ./kubernetes-deployments/mongodb.yaml 
 $ kubectl get deployments -n ms-demo --watch
 
 $ kubectl get all -n ms-demo
 $ kubectl get pods -n ms-demo
 $ kubectl get pod NAME_OF_POD -template={{.status.podIP}}
+```
 
-
+- meetingApi deployment
+```
 $ kubectl create -f ./kubernetes-deployments/meetingApi.yaml
 
 $ kubectl get all -n ms-demo
 $ kubectl get pods -n ms-demo
+```
 
+- meetingUi deployment
+```
 $ kubectl create -f ./kubernetes-deployments/meetingUi.yaml
 
 $ kubectl get all -n ms-demo
@@ -68,14 +74,12 @@ http://172.23.50.120:30080/  (whatever from kubectl get svc -n ms-demo)
 
 
 - highlight meetingApi deployment and show how many pods running
-
 ```
 $ kubectl get deployment vf-meetingui -n ms-demo
 $ kubectl get pods -n ms-demo
 ```
 
 - scale up number of replica and show again how many pods running
-
 ```
 $ kubectl scale deployments/vf-meetingui --replicas=4 -n ms-demo
 $ kubectl get deployment vf-meetingui -n ms-demo
@@ -84,7 +88,6 @@ $ kubectl get pods -n ms-demo
 
 
 - kill one pod and show how many pods are running (focus on pod names)
-
 ```
 $ kubectl delete pod vf-meetingui-5b8df77fc4-h5xfr -n ms-demo
 $ kubectl get pods  -n ms-demo
@@ -92,7 +95,6 @@ $ kubectl get pods  -n ms-demo
 
 
 - cleanup 
-
 ```
 $ cd kubernetes-deployments/
 $ kubectl delete -f mongodb.yaml -f meetingUi.yaml -f meetingApi.yaml -f meetingAppSetup.yaml
