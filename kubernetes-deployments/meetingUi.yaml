@@ -45,19 +45,6 @@ spec:
   rules:
   - host: meetingactions
     http:
-<<<<<<< HEAD
-      paths: /somepath
-      - backend:
-          serviceName: vf-meetingui
-          servicePort: 8080
-           
-||||||| merged common ancestors
-      paths:
-      - backend:
-          serviceName: vf-meetingui
-          servicePort: 8080
-           
-=======
       paths: 
         - path: /
           backend:
@@ -67,7 +54,6 @@ spec:
           backend:
             serviceName: vf-meetingapi
             servicePort: 8090   
->>>>>>> 997dfaaaaf2bbd255f062323b464ca5450b322d8
  
 ---
 apiVersion: v1

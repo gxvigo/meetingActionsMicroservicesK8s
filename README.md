@@ -251,6 +251,22 @@ What's created:
 - deployment - defintion of a pod with ConfigMap and imagePullSecrets to access the image in the private registry 
 
 
+### Time to check what we have done
+
+Let's have a look at what we have created:
+
+
+```
+kubectl get all -n ms-demo
+```
+
+Amongst all the resouces created (deplyments and pods) you should see the service associated to the meetingUI
+
+svc/vf-meetingui-nodeport    NodePort    10.0.0.225   <none>        8080:30080/TCP    9m
+
+From a browser access the proxy node at the NodePort above. E.g.
+http://172.23.50.120:30080/
+
 
 
 ### To reset the environment:
